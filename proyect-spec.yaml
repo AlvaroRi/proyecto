@@ -1,0 +1,116 @@
+project_name: "SaaS Migration: Static to Next.js Fullstack"
+version: "1.0.0"
+status: "Phase 1: Documentation & Specification"
+tech_stack:
+  frontend: "Next.js (App Router), React"
+  backend: "Node.js (Next.js API Routes/Server Actions)"
+  database: "PostgreSQL"
+  styling: "CSS (Modules/Tailwind as permitted)"
+  auth: "To be defined (NextAuth.js or JWT-based)"
+
+current_state:
+  architecture: "Static HTML/JS"
+  data_storage: "Local JSON files"
+  auth_system: "None"
+
+migration_goals:
+  - transition_from: "JSON Files"
+    transition_to: "PostgreSQL Relational Schema"
+  - transition_from: "Client-side Static Rendering"
+    transition_to: "Server-Side Rendering (SSR) & Static Site Generation (SSG)"
+  - feature_add: "Authentication & Authorization System"
+
+requirements:
+  functional:
+    - R1: User registration and persistent login.
+    - R2: Data migration from JSON structure to SQL tables.
+    - R3: Protected routes (Dashboard) only accessible to authenticated users.
+    - R4: CRUD operations for business logic via REST API / Server Actions.
+    - R5: persistent cart_items.    
+  non_functional:
+    - NF1: SEO optimization via Next.js Metadata API.
+    - NF2: Performance (Core Web Vitals compliance).
+    - NF3: Scalable folder structure (Feature-based architecture).
+    - NF4: rendering image.
+    
+data_schema_draft:
+  users:
+    id: "UUID (PK)"
+    email: "String (Unique)"
+    password_hash: "String"
+    role: "Enum (admin, customer)"
+    created_at: "Timestamp"
+  categories:
+    id: "UUID (PK)"
+    name: "String"
+    slug: "String (Unique)"
+  products:
+    id: "UUID (PK)"
+    code: "String (Unique)" # Mapped from JSON 'id' (e.g., B001, A001)
+    name: "String"
+    material: "String"
+    color: "String"
+    size_measure: "String" # Mapped from 'medida' or 'color' (when used for talla)
+    price: "Decimal(10, 2)"
+    image_url: "String"
+    alt_text: "String"
+    category_id: "UUID (FK -> categories.id)"
+    created_at: "Timestamp"
+  cart_items:
+    id: "UUID (PK)"
+    user_id: "UUID (FK -> users.id)"
+    product_id: "UUID (FK -> products.id)"
+    quantity: "Integer"
+    added_at: "Timestamp"
+
+milestones:
+  - id: 1
+    name: "Setup & Database Design"
+    status: "Pending"
+  - id: 2
+    name: "Auth System Implementation"
+    status: "Pending"
+  - id: 3
+    name: "Data Migration (JSON to Postgres)"
+    status: "Pending"
+  - id: 4
+    name: "Frontend Reconstruction in Next.js"
+    status: "Pending"
+
+postgresql_tables:
+  - table_name: "users"
+    columns:
+      id: "UUID PRIMARY KEY DEFAULT gen_random_uuid()"
+      email: "VARCHAR(255) UNIQUE NOT NULL"
+      password_hash: "TEXT NOT NULL"
+      role: "VARCHAR(20) DEFAULT 'customer'"
+      created_at: "TIMESTAMPTZ DEFAULT NOW()"
+
+  - table_name: "categories"
+    columns:
+      id: "UUID PRIMARY KEY DEFAULT gen_random_uuid()"
+      name: "VARCHAR(100) NOT NULL"
+      slug: "VARCHAR(100) UNIQUE NOT NULL"
+
+  - table_name: "products"
+    columns:
+      id: "UUID PRIMARY KEY DEFAULT gen_random_uuid()"
+      code: "VARCHAR(50) UNIQUE NOT NULL"
+      name: "VARCHAR(255) NOT NULL"
+      material: "VARCHAR(255)"
+      color: "VARCHAR(100)"
+      size_measure: "VARCHAR(100)"
+      price: "DECIMAL(10, 2) NOT NULL DEFAULT 0.00"
+      image_url: "TEXT"
+      alt_text: "TEXT"
+      category_id: "UUID REFERENCES categories(id) ON DELETE SET NULL"
+      created_at: "TIMESTAMPTZ DEFAULT NOW()"
+      updated_at: "TIMESTAMPTZ DEFAULT NOW()"
+
+  - table_name: "cart_items"
+    columns:
+      id: "UUID PRIMARY KEY DEFAULT gen_random_uuid()"
+      user_id: "UUID REFERENCES users(id) ON DELETE CASCADE"
+      product_id: "UUID REFERENCES products(id) ON DELETE CASCADE"
+      quantity: "INTEGER NOT NULL DEFAULT 1"
+      added_at: "TIMESTAMPTZ DEFAULT NOW()"
