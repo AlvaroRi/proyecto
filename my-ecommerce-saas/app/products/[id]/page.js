@@ -6,11 +6,11 @@ export default function ProductDetailPage({ params }) {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }}>
         <div style={{ background: '#f9f9f9', height: '500px', borderRadius: '12px' }}></div>
         <div>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Exquisite Piece #{id}</h1>
+          <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Excelente eleccio #{id}</h1>
           <p style={{ fontSize: '1.5rem', color: '#bfa07a', marginBottom: '2rem' }}>$129.99</p>
           <p style={{ lineHeight: '1.6', color: '#555', marginBottom: '2.5rem' }}>
-            This handcrafted piece represents the pinnacle of modern elegance. 
-            Made with the finest materials, it's designed to make a statement 
+            This handcrafted piece represents the pinnacle of modern elegance.
+            Made with the finest materials, it's designed to make a statement
             whether worn daily or on special occasions.
           </p>
           <button style={{
@@ -22,7 +22,7 @@ export default function ProductDetailPage({ params }) {
             fontSize: '1.1rem',
             cursor: 'pointer'
           }}>
-            Add to Cart
+            Añadir al carrito
           </button>
         </div>
       </div>

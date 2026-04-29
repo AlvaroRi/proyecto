@@ -1,12 +1,12 @@
-import ProductCard from '@/components/ProductCard';
+import ProductCard from '@/features/products/components/ProductCard';
 
 export default function ProductsPage() {
   return (
     <div style={{ padding: '4rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
-      <h1>Our Collection</h1>
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
+      <h1>Nuestra collección</h1>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
         gap: '2rem',
         marginTop: '3rem'
       }}>
